@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoteConnect ⛓️ Web3</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- ======= CONNECT SCREEN ======= -->
+<div id="screen-connect" class="screen active">
+  <div class="connect-card">
+    <div class="connect-logo">⛓️</div>
+    <h1 class="connect-title">VoteConnect</h1>
+    <p class="connect-sub">Hệ thống bỏ phiếu phi tập trung trên Blockchain</p>
+
+    <div class="feature-list">
+      <div class="feature-item"><i class="ti ti-shield-check"></i> Phiếu bầu minh bạch, không thể sửa đổi</div>
+      <div class="feature-item"><i class="ti ti-fingerprint"></i> Danh tính xác thực qua ví MetaMask</div>
+      <div class="feature-item"><i class="ti ti-world"></i> Kết quả lưu vĩnh viễn trên Ethereum</div>
+    </div>
+
+    <button class="btn-connect" id="btn-connect" onclick="Web3Manager.connect()">
+      <span class="metamask-fox">🦊</span>
+      Kết nối MetaMask
+    </button>
+
+    <div id="connect-status" class="connect-status"></div>
+
+    <div class="network-info">
+      <span class="dot dot-amber"></span>
+      <span id="network-label">Chưa kết nối</span>
+    </div>
+
+    <!-- Hướng dẫn import account Hardhat -->
+    <div class="hardhat-guide">
+      <div class="hg-title">⚡ Dùng lần đầu? Làm theo 3 bước này</div>
+      <div class="hg-step"><span class="hg-num">1</span> Mở terminal, chạy: <code>npx hardhat node</code></div>
+      <div class="hg-step"><span class="hg-num">2</span> MetaMask → Import account → dán private key test:</div>
+      <div class="hg-key" onclick="copyHardhatKey(this)">
+        <span class="hg-key-text">0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80</span>
+        <span class="hg-copy">📋 Copy</span>
+      </div>
+      <div class="hg-step"><span class="hg-num">3</span> Nhấn "Kết nối MetaMask" → app tự chuyển sang Hardhat Local ✓</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function copyHardhatKey(el) {
+  const key = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+  if (navigator.clipboard) navigator.clipboard.writeText(key);
+  el.querySelector('.hg-copy').textContent = '✅ Đã copy!';
+  setTimeout(() => { el.querySelector('.hg-copy').textContent = '📋 Copy'; }, 2000);
+}
+</script>
+
+<!-- ======= MAIN APP ======= -->
+<div id="screen-app" class="screen" style="display:none">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="chain-icon">⛓️</span>
+      <span class="app-title">VoteConnect</span>
+      <div class="network-badge" id="network-badge">Sepolia</div>
+    </div>
+    <div class="topbar-right">
+      <div class="wallet-info" id="wallet-info">
+        <span class="wallet-dot"></span>
+        <span id="wallet-addr">0x...</span>
+        <span id="wallet-balance" class="wallet-balance">0 ETH</span>
+      </div>
+      <div class="role-toggle">
+        <button class="role-btn active" id="btn-role-admin" onclick="App.setRole('admin')">Admin</button>
+        <button class="role-btn" id="btn-role-user" onclick="App.setRole('user')">User</button>
+      </div>
+      <button class="btn-disconnect" onclick="Web3Manager.disconnect()">
+        <i class="ti ti-logout"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div id="admin-nav">
+        <div class="sidebar-section">Quản trị</div>
+        <div class="nav-item active" data-page="dashboard"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+        <div class="nav-item" data-page="create-vote"><i class="ti ti-plus"></i> Tạo bỏ phiếu</div>
+        <div class="nav-item" data-page="manage-votes"><i class="ti ti-list-check"></i> Quản lý phiếu</div>
+        <div class="nav-item" data-page="results"><i class="ti ti-chart-bar"></i> Kết quả</div>
+      </div>
+      <div id="user-nav" style="display:none">
+        <div class="sidebar-section">Bỏ phiếu</div>
+        <div class="nav-item active" data-page="vote-home"><i class="ti ti-home"></i> Trang chủ</div>
+        <div class="nav-item" data-page="my-votes"><i class="ti ti-check"></i> Phiếu của tôi</div>
+      </div>
+      <!-- Chain info box -->
+      <div class="chain-box" id="chain-box">
+        <div class="chain-box-title"><i class="ti ti-brand-ethereum"></i> On-Chain</div>
+        <div class="chain-row"><span>Mạng</span><span id="cb-network">—</span></div>
+        <div class="chain-row"><span>Block</span><span id="cb-block">—</span></div>
+        <div class="chain-row"><span>Contract</span><span id="cb-contract" class="addr-short">—</span></div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ADMIN: Dashboard -->
+      <div id="page-dashboard" class="page active">
+        <div class="page-header">
+          <div class="page-title">Dashboard</div>
+          <div id="clock" style="font-size:12px;color:var(--muted)"></div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Tổng phiếu</div><div class="stat-num blue" id="s-total">—</div></div>
+          <div class="stat-card"><div class="stat-label">Đang diễn ra</div><div class="stat-num green" id="s-active">—</div></div>
+          <div class="stat-card"><div class="stat-label">Tổng lượt vote</div><div class="stat-num amber" id="s-votes">—</div></div>
+          <div class="stat-card"><div class="stat-label">Blockchain</div><div class="stat-num" style="color:#F6851B">ETH</div></div>
+        </div>
+        <div class="section-title">Phiếu gần đây (on-chain)</div>
+        <div id="recent-list"><div class="loading"><i class="ti ti-loader"></i> Đang tải từ blockchain...</div></div>
+      </div>
+
+      <!-- ADMIN: Tạo phiếu -->
+      <div id="page-create-vote" class="page">
+        <div class="page-header"><div class="page-title">Tạo cuộc bỏ phiếu</div></div>
+        <div class="card">
+          <div class="form-group">
+            <label class="form-label">Chủ đề</label>
+            <input class="form-input" id="cv-title" placeholder="Ví dụ: Chọn mascot mới cho dự án...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mô tả</label>
+            <textarea class="form-textarea" id="cv-desc" placeholder="Mô tả chi tiết..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Bắt đầu</label>
+              <input type="datetime-local" class="form-input" id="cv-start">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kết thúc</label>
+              <input type="datetime-local" class="form-input" id="cv-end">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Danh mục</label>
+            <select class="form-select" id="cv-cat">
+              <option value="general">Tổng hợp</option>
+              <option value="product">Sản phẩm</option>
+              <option value="event">Sự kiện</option>
+              <option value="hr">Nhân sự</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Các lựa chọn</label>
+            <div id="options-list">
+              <div class="opt-row"><input class="form-input" placeholder="Lựa chọn 1"><button class="btn-icon" onclick="Form.removeOpt(this)"><i class="ti ti-x"></i></button></div>
+              <div class="opt-row"><input class="form-input" placeholder="Lựa chọn 2"><button class="btn-icon" onclick="Form.removeOpt(this)"><i class="ti ti-x"></i></button></div>
+            </div>
+            <button class="btn-add-opt" onclick="Form.addOpt()"><i class="ti ti-plus"></i> Thêm lựa chọn</button>
+          </div>
+
+          <!-- Gas estimate -->
+          <div class="gas-box" id="gas-box" style="display:none">
+            <i class="ti ti-gas-station"></i>
+            <span>Phí gas ước tính: <strong id="gas-estimate">~0.002 ETH</strong></span>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="Form.clear()">Xóa</button>
+            <button class="btn btn-primary" onclick="Form.estimateGas()">
+              <i class="ti ti-gas-station"></i> Ước tính Gas
+            </button>
+            <button class="btn btn-chain" id="btn-create" onclick="Form.createPoll()">
+              <span class="metamask-fox-sm">🦊</span> Tạo & Ký lên Blockchain
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN: Quản lý -->
+      <div id="page-manage-votes" class="page">
+        <div class="page-header">
+          <div class="page-title">Quản lý bỏ phiếu</div>
+          <button class="btn btn-primary btn-sm" onclick="App.showPage('create-vote')"><i class="ti ti-plus"></i> Tạo mới</button>
+        </div>
+        <div id="manage-list"><div class="loading"><i class="ti ti-loader"></i> Đang tải...</div></div>
+      </div>
+
+      <!-- ADMIN: Kết quả -->
+      <div id="page-results" class="page">
+        <div class="page-header"><div class="page-title">Kết quả on-chain</div></div>
+        <div id="results-list"><div class="loading"><i class="ti ti-loader"></i> Đang tải...</div></div>
+      </div>
+
+      <!-- USER: Vote home -->
+      <div id="page-vote-home" class="page">
+        <div class="page-header"><div class="page-title">Bỏ phiếu</div></div>
+        <div class="wallet-banner" id="wallet-banner">
+          <div class="wb-left">
+            <span class="wb-fox">🦊</span>
+            <div>
+              <div class="wb-title">Ví MetaMask đã kết nối</div>
+              <div class="wb-addr" id="wb-addr-display">0x...</div>
+            </div>
+          </div>
+          <div class="wb-right">
+            <div class="wb-balance" id="wb-balance-display">0 ETH</div>
+            <div class="wb-label">Số dư</div>
+          </div>
+        </div>
+        <div id="user-vote-list"><div class="loading"><i class="ti ti-loader"></i> Đang tải...</div></div>
+      </div>
+
+      <!-- USER: Phiếu của tôi -->
+      <div id="page-my-votes" class="page">
+        <div class="page-header"><div class="page-title">Lịch sử bỏ phiếu của tôi</div></div>
+        <div id="my-votes-list"><div class="loading"><i class="ti ti-loader"></i> Đang tải...</div></div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- TX MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Xác nhận giao dịch</div>
+      <button class="btn-icon" onclick="TxModal.close()"><i class="ti ti-x"></i></button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- TX PENDING OVERLAY -->
+<div class="tx-overlay" id="tx-overlay" style="display:none">
+  <div class="tx-card">
+    <div class="tx-spinner">⛓️</div>
+    <div class="tx-title" id="tx-title">Đang gửi giao dịch...</div>
+    <div class="tx-sub" id="tx-sub">Vui lòng xác nhận trong MetaMask</div>
+    <div class="tx-hash" id="tx-hash" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ethers.js v5 từ CDN -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="js/contract.js"></script>
+<script src="js/web3.js"></script>
+<script src="js/store.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/user.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

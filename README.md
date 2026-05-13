@@ -29,7 +29,7 @@
 Hệ thống bỏ phiếu phi tập trung · MetaMask + Ethereum Blockchain
 
 ---
-## 🚀 4. Hình ảnh các chức năng
+## 🚀  Hình ảnh các chức năng
 
 <p align="center">
   <img src="docs/project photo/1.png" alt="Ảnh 1" width="800"/>

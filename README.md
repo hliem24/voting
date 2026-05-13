@@ -1,8 +1,88 @@
+
+# 🚗 Hệ thống bỏ phiếu phi tập trung · MetaMask + Ethereum Blockchain
+
+<h2 align="center">
+    <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
+    🎓 Faculty of Information Technology (DaiNam University)
+    </a>
+</h2>
+
+<h2 align="center">
+   Smart Parking System - Computer Vision Project
+</h2>
+
+<div align="center">
+    <p align="center">
+        <img src="docs/aiotlab_logo.png" width="170"/>
+        <img src="docs/fitdnu_logo.png" width="180"/>
+        <img src="docs/dnu_logo.png" width="200"/>
+    </p>
+
+[![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
+[![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
+[![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
+
+</div>
+
+---
 # VoteConnect Web3 ⛓️
 Hệ thống bỏ phiếu phi tập trung · MetaMask + Ethereum Blockchain
 
 ---
+## 🚀 4. Hình ảnh các chức năng
 
+<p align="center">
+  <img src="docs/project photo/1.png" alt="Ảnh 1" width="800"/>
+</p>
+
+<p align="center">
+  <em>GIAO DIỆN  APP  </em>
+</p>
+
+<p align="center">
+  <img src="docs/project photo/2.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>TRANG CHỦ CỦA APP    </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/3.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>TẠO PHIẾU BÌNH CHỌN    </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/4.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>QUẢN LÝ PHIẾU   </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/5.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>LỊCH SỬ CÁC PHIẾU ĐÃ BÌNH CHỌN    </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/6.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>GIAO DIỆN NGƯỜI DÙNG   </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/7.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>KHI BÌNH CHỌN GIAO DIỆN APP VÀ METAMARK   </em>
+</p>
+<p align="center">
+  <img src="docs/project photo/8.png" alt="Ảnh 2" width="700"/>
+</p>
+<p align="center">
+  <em>CÁC PHIẾU ĐÃ BÌNH CHỌN    </em>
+</p>
+
+---
 ## 📁 Cấu trúc dự án
 
 ```

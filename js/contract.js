@@ -1,7 +1,7 @@
 // ===== CONTRACT CONFIG =====
 // Khớp với VoteConnect.sol thật
 
-const CONTRACT_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"; // ← thay sau khi deploy
+const CONTRACT_ADDRESS = "0x0165878A594ca255338adfa4d48449f69242Eb8F"; // ← thay sau khi deploy
 
 const CONTRACT_ABI = [
   // ── Events ──────────────────────────────────────────

@@ -1,5 +1,5 @@
 
-# 🚗 Hệ thống bỏ phiếu phi tập trung · MetaMask + Ethereum Blockchain
+#   Hệ thống bỏ phiếu phi tập trung · MetaMask + Ethereum Blockchain
 
 <h2 align="center">
     <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
@@ -8,7 +8,7 @@
 </h2>
 
 <h2 align="center">
-   Smart Parking System - Computer Vision Project
+   Decentralized Voting System · MetaMask + Ethereum Blockchain
 </h2>
 
 <div align="center">
@@ -243,3 +243,12 @@ Thường đã có sẵn trong MetaMask, hoặc thêm:
 - **KHÔNG** dùng private key ví chính → tạo ví riêng để dev
 - Smart contract đã deployed là **bất biến**, không sửa được
 - Kiểm tra kỹ contract trước khi deploy lên mainnet
+
+## 👜Thông tin cá nhân
+**Họ tên**: Nguyễn Hoàng Liêm.  
+**Lớp**: CNTT 16-03.  
+**Email**: liemnguyenhoang22@gmail.com.
+
+© 2026 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
+
+---

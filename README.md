@@ -246,7 +246,7 @@ Thường đã có sẵn trong MetaMask, hoặc thêm:
 ## POSTER
 
 <p align="center">
-  <img src="docs/project photo/9.png.png" alt="Ảnh " width="700"/>
+  <img src="docs/project photo/9.png.png.png" alt="Ảnh 9 " width="700"/>
 </p>
 <p align="center">
   <em>POSTER</em>

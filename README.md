@@ -243,10 +243,11 @@ Thường đã có sẵn trong MetaMask, hoặc thêm:
 - **KHÔNG** dùng private key ví chính → tạo ví riêng để dev
 - Smart contract đã deployed là **bất biến**, không sửa được
 - Kiểm tra kỹ contract trước khi deploy lên mainnet
+
 ## POSTER
 
 <p align="center">
-  <img src="docs/project photo/9.png.png.png" alt="Ảnh 9 " width="700"/>
+  <img src="docs/project photo/9.png" alt="POSTER" width="700"/>
 </p>
 <p align="center">
   <em>POSTER</em>

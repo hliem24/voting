@@ -243,6 +243,14 @@ Thường đã có sẵn trong MetaMask, hoặc thêm:
 - **KHÔNG** dùng private key ví chính → tạo ví riêng để dev
 - Smart contract đã deployed là **bất biến**, không sửa được
 - Kiểm tra kỹ contract trước khi deploy lên mainnet
+## POSTER
+
+<p align="center">
+  <img src="docs/project photo/9.png.png" alt="Ảnh " width="700"/>
+</p>
+<p align="center">
+  <em>POSTER</em>
+</p>
 
 ## 👜Thông tin cá nhân
 **Họ tên**: Nguyễn Hoàng Liêm.  
